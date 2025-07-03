@@ -22,20 +22,53 @@ BackstagePass: Special concert-ticket behavior
 ConjuredItem: Degrades twice as fast (new requirement)
 
 
-### 🧩 Polymorphic Item Handling
-```mermaid
-graph TD
-    A[updateQuality] --> B{Item Type}
-    B -->|Normal| C[NormalItem]
-    B -->|Aged Brie| D[AgedBrie]
-    B -->|Sulfuras| E[Sulfuras]
-    B -->|Backstage| F[BackstagePass]
-    B -->|Conjured| G[ConjuredItem]
-    C --> H[Apply Rules]
-    D --> H
-    E --> H
-    F --> H
-    G --> H
+classDiagram
+    direction LR
+    
+    class Item {
+        <<trait>>
+        +update()*
+    }
+    
+    class GildedItem {
+        -item: Item
+        +update()
+    }
+    
+    class NormalItem {
+        +update()
+    }
+    
+    class AgedBrie {
+        +update()
+    }
+    
+    class Sulfuras {
+        +update()
+    }
+    
+    class BackstagePass {
+        +update()
+    }
+    
+    class ConjuredItem {
+        +update()
+    }
+    
+    class GildedRose {
+        -items: Array[Item]
+        -handlers: Map[String, Item => GildedItem]
+        +updateQuality()
+    }
+    
+    GildedItem <|-- NormalItem
+    GildedItem <|-- AgedBrie
+    GildedItem <|-- Sulfuras
+    GildedItem <|-- BackstagePass
+    GildedItem <|-- ConjuredItem
+    GildedItem ..> Item : Wraps
+    GildedRose --> GildedItem : Creates
+    GildedRose --> Item : Updates
 
     🚀 Benefits of This Approach
 Extensibility: Add new item types in 3 simple steps:
