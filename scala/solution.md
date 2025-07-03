@@ -21,55 +21,8 @@ BackstagePass: Special concert-ticket behavior
 
 ConjuredItem: Degrades twice as fast (new requirement)
 
-
-classDiagram
-    direction LR
     
-    class Item {
-        <<trait>>
-        +update()*
-    }
-    
-    class GildedItem {
-        -item: Item
-        +update()
-    }
-    
-    class NormalItem {
-        +update()
-    }
-    
-    class AgedBrie {
-        +update()
-    }
-    
-    class Sulfuras {
-        +update()
-    }
-    
-    class BackstagePass {
-        +update()
-    }
-    
-    class ConjuredItem {
-        +update()
-    }
-    
-    class GildedRose {
-        -items: Array[Item]
-        -handlers: Map[String, Item => GildedItem]
-        +updateQuality()
-    }
-    
-    GildedItem <|-- NormalItem
-    GildedItem <|-- AgedBrie
-    GildedItem <|-- Sulfuras
-    GildedItem <|-- BackstagePass
-    GildedItem <|-- ConjuredItem
-    GildedItem ..> Item : Wraps
-    GildedRose --> GildedItem : Creates
-    GildedRose --> Item : Updates
-
+  
     🚀 Benefits of This Approach
 Extensibility: Add new item types in 3 simple steps:
 
