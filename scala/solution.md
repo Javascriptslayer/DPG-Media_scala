@@ -22,20 +22,20 @@ BackstagePass: Special concert-ticket behavior
 ConjuredItem: Degrades twice as fast (new requirement)
 
 
+### 🧩 Polymorphic Item Handling
+```mermaid
 graph TD
-    A[GildedRose] --> B[updateQuality]
-    B --> C[Loop through items]
-    C --> D[getUpdater]
-    D -->|Item Type| E[NormalItem]
-    D -->|Aged Brie| F[AgedBrie]
-    D -->|Sulfuras| G[Sulfuras]
-    D -->|Backstage Pass| H[BackstagePass]
-    D -->|Conjured*| I[ConjuredItem]
-    E --> J[Update Logic]
-    F --> J
-    G --> J
-    H --> J
-    I --> J
+    A[updateQuality] --> B{Item Type}
+    B -->|Normal| C[NormalItem]
+    B -->|Aged Brie| D[AgedBrie]
+    B -->|Sulfuras| E[Sulfuras]
+    B -->|Backstage| F[BackstagePass]
+    B -->|Conjured| G[ConjuredItem]
+    C --> H[Apply Rules]
+    D --> H
+    E --> H
+    F --> H
+    G --> H
 
     🚀 Benefits of This Approach
 Extensibility: Add new item types in 3 simple steps:
